@@ -11,3 +11,31 @@
 ##Scan an AWS environment for cloud configuration vulnerabilities
 
 ### Example vulnerability
+
+================================== Answer ==================================
+Tools for DevSecOps Pipeline:
+
+1. Checkov
+   - Type: Infrastructure as Code Compliance Scanning
+   - Example Compliance Violation: Exposes hard-coded secrets or insecure configurations in Terraform or CloudFormation templates.
+
+2. TFLint
+   - Type: Infrastructure as Code Compliance Scanning
+   - Example Compliance Violation: Identifies deprecated resource types and incorrect syntax in Terraform files.
+
+3. Clair
+   - Type: AMI/Container Image Scanning
+   - Example Compliance Violation: Identifies known vulnerabilities in the OS packages used within Docker images.
+
+4. Trivy
+   - Type: AMI/Container Image Scanning
+   - Example Compliance Violation: Detects vulnerabilities in open-source software dependencies, OS packages, and container images.
+
+5. AWS Config
+   - Type: AWS Environment Configuration Scanning
+   - Example Compliance Violation: Detects non-compliance with configured security groups, such as open ports to the world.
+
+6. ScoutSuite
+   - Type: AWS Environment Configuration Scanning
+   - Example Compliance Violation: Identifies misconfigurations in AWS services like IAM, S3, and EC2 that could lead to security risks.
+

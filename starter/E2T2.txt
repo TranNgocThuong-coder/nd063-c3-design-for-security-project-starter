@@ -1,3 +1,30 @@
 Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project.
 
+Vulnerabilities and Analysis:
+
+1. Security Groups Allow Ingress from 0.0.0.0/0 or ::/0 to Port 22:
+Issue: Allowing ingress from anywhere on port 22 (SSH) exposes the environment to potential brute force attacks and unauthorized access attempts.
+Analysis: This vulnerability stems from overly permissive security group rules in the deployed environment, allowing SSH access from any IP address.
+
+2. VPC Default Security Groups Allow Inbound or Outbound Traffic:
+Issue: The default security group in the VPC allows all inbound and outbound traffic, which can lead to unintended access and data exposure.
+Analysis: By default, VPC security groups may have permissive rules that do not restrict traffic, posing a security risk if not explicitly configured.
+
+3. Security Groups Allow Ingress from 0.0.0.0/0 or ::/0 to Port 3389:
+Issue: Allowing ingress from anywhere on port 3389 (RDP) poses a significant risk, similar to the SSH port 22 issue, by exposing the system to unauthorized remote access attempts.
+Analysis: This issue suggests that the security group rules were configured to allow unrestricted RDP access, which is a common vulnerability in cloud environments.
+
 Bonus - provide recommendations on how to remediate the vulnerabilities.
+
+Recommendations for Remediation:
+
+1. Restrict SSH Access (Port 22):
+Recommendation: Modify the security group rules to allow SSH access only from specific, trusted IP addresses or IP ranges. If remote access is required from various locations, consider using a VPN or SSH bastion host.
+
+
+2. Harden Default Security Group:
+Recommendation: Modify the default security group to restrict all inbound and outbound traffic. Create specific security groups with the necessary rules for each resource, ensuring the principle of least privilege.
+
+
+3. Restrict RDP Access (Port 3389):
+Recommendation: Similar to SSH, restrict RDP access to specific, trusted IP addresses. Avoid allowing unrestricted access to the RDP port.

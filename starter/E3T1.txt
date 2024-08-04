@@ -1,3 +1,63 @@
 # Describe GuardDuty findings that were detected related to the brute force attack
 
+GuardDuty Findings
+Severity: High
+Finding Type: UnauthorizedAccess
+/SSHBruteForce
+Resource: Instance: i-0108b5515c017cd18
+Last Seen: 8 minutes ago
+Count: 2
+
+Severity: Low
+Finding Type: UnauthorizedAccess
+/SSHBruteForce
+Resource: Instance: i-04d1ece4b9d417f29
+Last Seen: 9 minutes ago
+Count: 2
+
+Description of Findings
+UnauthorizedAccess:
+/SSHBruteForce findings indicate that a brute force attack was detected on EC2 instances, targeting the SSH port. 
+This type of attack involves an automated attempt to guess SSH credentials to gain unauthorized access to your instance.
+
+High Severity Finding: This finding indicates a more significant risk and requires immediate attention. 
+The high severity finding is for instance i-0108b5515c017cd18, and it was observed 8 minutes ago with 2 attempts detected.
+
+Low Severity Finding: This finding represents a less critical risk but still needs to be addressed. 
+The low severity finding is for instance i-04d1ece4b9d417f29, and it was observed 9 minutes ago with 2 attempts detected.
+
 # Research the AWS Guard Duty documentation page and explain how GuardDuty may have detected this attack - i.e. what was its source of information.
+
+AWS GuardDuty using a combination of data sources and threat intelligence feeds, such as lists of malicious IP addresses and domains, 
+and machine learning (ML) models to identify unexpected, and potentially unauthorized activity in your AWS environment.
+
+Explain How GuardDuty Detects Brute Force Attacks:
+CloudTrail Logs:
+    Source of Information: AWS CloudTrail logs provide detailed records of API calls made within AWS account. 
+    GuardDuty analyzes these logs to detect unusual or unauthorized API activity.
+    Detection Method: GuardDuty identifies suspicious patterns such as frequent and failed login attempts to the EC2 instances. 
+    In the case of brute force attacks, it might detect multiple failed SSH login attempts from different IP addresses, 
+    which is a common indicator of brute force activity.
+
+
+VPC Flow Logs:
+    Source of Information: VPC Flow Logs capture information about the IP traffic going to and from network interfaces in  VPC.
+    These logs record metadata such as source and destination IP addresses, ports, and the number of bytes transferred.
+    Detection Method: GuardDuty analyzes VPC Flow Logs to detect patterns consistent with brute force attacks, 
+    such as a high number of connection attempts to the SSH port (port 22) from various IP addresses.
+
+DNS Logs:
+    Source of Information: DNS logs record the DNS queries made by resources within your VPC. 
+    GuardDuty can analyze these logs for unusual or suspicious domain resolution requests.
+    Detection Method: While less directly related to SSH brute force attacks, DNS logs can provide additional context, 
+    such as attempts to resolve known malicious domains or domains associated with botnets.
+
+Threat Intelligence Feeds:
+    Source of Information: GuardDuty uses threat intelligence feeds to identify known malicious IP addresses and other indicators of compromise.
+    Detection Method: If the IP addresses making the brute force attempts are known to be associated with malicious activity, 
+    GuardDuty can use this information to flag the attempts as suspicious.
+
+Machine Learning:
+    Source of Information: GuardDuty employs machine learning models to identify deviations from normal patterns of activity.
+    Detection Method: These models can detect anomalies in login attempts, such as an unusually high number of failed login attempts 
+    or login attempts coming from uncommon geographical locations.

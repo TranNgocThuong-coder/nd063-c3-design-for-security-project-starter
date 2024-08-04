@@ -1,5 +1,10 @@
 Based on the architecture diagram, and the steps you have taken so far to upload data and access the application web service, identify at least 2 obvious poor practices as it relates to security.  Include justification.
 
-# Poor practice 1
+# Poor practice 1: Allowing Direct Access from Untrusted Public Subnet to S3 Bucket Containing Sensitive Data:
+    - Issue: The architecture permits instances from the Untrusted Public Subnet to directly access the S3 bucket containing secret recipes.
+    - Justification: This poses a significant risk of data leakage. If an attacker gains control or access to an instance in the untrusted subnet, they can easily access and steal data from the S3 bucket. To protect sensitive data, stricter security policies should be implemented, such as using VPC Endpoints to restrict access to the S3 bucket only from trusted subnets.
 
-# Poor practice 2
+
+# Poor practice 2: Not Restricting Source Access to Web Services:
+    - Issue: The architecture does not clearly establish measures to limit source access to web services, especially from untrusted sources.
+    - Justification: The web services in your architecture (e.g., Web Service Instance) are accessible from the Internet via the Public Subnet. This increases the risk of cyber-attacks such as DDoS attacks, brute force attacks, or other forms of attacks. To mitigate risks, you should employ protective measures such as Web Application Firewall (WAF), set security group rules to limit permissible IP addresses, and use virtual private networks (VPNs) to secure access to critical services.

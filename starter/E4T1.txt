@@ -1,5 +1,50 @@
-
-
 # Identify 2-3 changes that can be made to our environment to prevent an ssh brute force attack from the internet.
 
+Restrict SSH Access via Security Groups:
+Action: Modify security group rules associated with EC2 instances 
+        to restrict inbound SSH traffic (port 22) to known, trusted IP addresses or ranges.
+Implementation:
+    Identify IP addresses or address ranges that require SSH access.
+    Update the security group to allow inbound SSH connections only from these IP addresses.
+    Deny all other inbound SSH traffic.
+
+Use AWS Systems Manager Session Manager:
+Action: Leverage AWS Systems Manager Session Manager for accessing instances instead of direct SSH access.
+Implementation:
+    Ensure that AWS Systems Manager Agent (SSM Agent) is installed and running on instances.
+    Configure IAM roles and policies to allow necessary access for Systems Manager.
+    Use Session Manager for instance management tasks to avoid exposing SSH ports.
+
+Implement Multi-Factor Authentication (MFA) and Strong Password Policies:
+Action: Enforce strong password policies and use multi-factor authentication for access to AWS accounts and services.
+Implementation:
+    Configure IAM policies to enforce strong password requirements (e.g., complexity, length).
+    Enable MFA for IAM user accounts with access to critical resources.
+    Consider using AWS Identity and Access Management (IAM) roles with limited permissions 
+    for specific tasks.
+
 # Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
+
+Use IAM Roles and Policies for Fine-Grained Access Control:
+Action: Implement IAM roles with least privilege principles for your instances and ensure that only authorized roles have access to sensitive data.
+Implementation:
+    Create IAM roles with specific policies that grant only necessary permissions to resources.
+    Attach the roles to instances based on their needs, ensuring no role has excessive permissions.
+    Regularly review and update IAM policies to adhere to the principle of least privilege.
+
+Implement Data Access Controls Using S3 Bucket Policies:
+Action: Use S3 bucket policies and access control lists (ACLs) to restrict access to sensitive data.
+Implementation:
+    Define S3 bucket policies to restrict access based on IAM roles, IP addresses, or VPC endpoints.
+    Enable S3 bucket versioning and logging to track access and changes to sensitive data.
+    Use encryption (server-side and client-side) to protect data at rest and in transit.
+
+Apply Network Segmentation and Private Subnets:
+Action: Use network segmentation to isolate sensitive resources and ensure that only authorized components can access them.
+Implementation:
+    Place sensitive data buckets and critical services in private subnets within VPC.
+    Use VPC endpoints to securely connect to S3 without exposing sensitive data to the public internet.
+    Implement network access control lists (ACLs) and security groups to control traffic between different subnets and services.
+
+
+
